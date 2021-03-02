@@ -6,6 +6,7 @@ from discord.ext import commands
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 from datetime import datetime
+import riotAPI
 import re
 
 #Scrape the riot website for the latest patch notes
@@ -44,6 +45,17 @@ async def patch(ctx):
         return
 
     response = fetch()
+
+    await ctx.send(response)
+
+
+#!getPlayer user for information about the given user
+@bot.command(name='getPlayer', help='Get info about a player')
+async def getPlayer(ctx, arg1):
+    if ctx.author == bot.user:
+        return
+
+    response = riotAPI.getPlayerInfo(arg1)
 
     await ctx.send(response)
 
